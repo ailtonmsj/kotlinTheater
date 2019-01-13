@@ -1,2 +1,17 @@
 server:
   port: 9090
+  servlet:
+    context-path: /kotlinTheater
+spring:
+  datasource:
+    #ONLY FOR TESTS
+    url: jdbc:h2:file:~/work/wksp_intellij/h2/kotlinTheater
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    properties:
+      hibernate:
+        #BE CAREFUL WITH THIS CONFIGURATION
+        hbm2dll.auto: update
+

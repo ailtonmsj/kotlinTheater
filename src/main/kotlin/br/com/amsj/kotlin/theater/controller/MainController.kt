@@ -23,7 +23,7 @@ class MainController {
             ModelAndView("seatBooking", "bean", CheckAvailabilityBackingBean())
 
 
-    @RequestMapping(value="checkAvailability", method= arrayOf(RequestMethod.POST))
+    @RequestMapping(value="/checkAvailability", method= arrayOf(RequestMethod.POST))
     fun checkAvailability(bean : CheckAvailabilityBackingBean) : ModelAndView {
         val selectedSeat = theaterService.find(bean.selectedSeatNum, bean.selectedSeatRow)
         val result = bookingService.isSeatFree(selectedSeat)
