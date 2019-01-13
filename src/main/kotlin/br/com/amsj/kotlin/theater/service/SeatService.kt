@@ -1,17 +1,21 @@
 package br.com.amsj.kotlin.theater.service
 
+import br.com.amsj.kotlin.theater.controller.repository.SeatRepository
 import br.com.amsj.kotlin.theater.domain.Seat
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
+import java.util.*
 
 @Service
-class TheaterService {
+class SeatService {
 
-    private val hiddenSeats = mutableListOf<Seat>()
+    @Autowired
+    lateinit var seatRepository : SeatRepository
 
-    constructor() {
+    fun initializeDataBase() {
 
-        fun getPrice(row: Int, num: Int) : BigDecimal {
+        fun getPrice( row: Int, num: Int ) : BigDecimal {
             return when {
                 row >=14 -> BigDecimal(14.50)
                 num <=3 || num >= 34 -> BigDecimal(16.50)
@@ -21,7 +25,7 @@ class TheaterService {
 
         }
 
-        fun getDescription(row: Int, num: Int) : String {
+        fun getDescription( row: Int, num: Int ) : String {
             return when {
                 row == 15 -> "Back Row"
                 row == 14 -> "Cheaper Seat"
@@ -31,18 +35,25 @@ class TheaterService {
             }
         }
 
+        val seats = ArrayList<Seat>()
+
         for (row in 1..15) {
             for (num in 1..36) {
-                hiddenSeats.add(Seat((row+64).toChar(), num, getPrice(row,num), getDescription(row,num) ))
+                seats.add(Seat(0, (row+64).toChar(), num, getPrice(row,num), getDescription(row,num) ))
             }
         }
+        seatRepository.saveAll(seats)
     }
 
-    val seats
-        get() = hiddenSeats.toList()
-
-    fun find(num : Int, row: Char) : Seat {
-        return seats.filter { it.row == row && it.num == num }.first()
+    fun clearDataBase() {
+        seatRepository.deleteAll()
     }
+
+    fun findByRowAndNum( row: Char, num: Int ) : Optional<Seat> {
+        return seatRepository.findByRowAndNum(row, num)
+    }
+
+
+
 
 }

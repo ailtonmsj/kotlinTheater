@@ -79,6 +79,7 @@
 					</args>
 					<compilerPlugins>
 						<plugin>spring</plugin>
+						<!-- FOR JPA USAGE -->
 						<plugin>jpa</plugin>
 					</compilerPlugins>
 				</configuration>
@@ -88,6 +89,7 @@
 						<artifactId>kotlin-maven-allopen</artifactId>
 						<version>${kotlin.version}</version>
 					</dependency>
+					<!-- FOR JPA USAGE -->
 					<dependency>
 						<groupId>org.jetbrains.kotlin</groupId>
 						<artifactId>kotlin-maven-noarg</artifactId>
