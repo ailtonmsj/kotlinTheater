@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a performance</title>
+</head>
+<body>
+
+    <a th:href="@{/}">Home</a>
+    <br/>
+    <br/>
+
+    <h2>Add a performance</h2>
+    <form th:action="@{/performances/save}" method="POST" th:object="${performance}">
+        <input type="hidden" th:field="*{id}"
+        <p>Name of performance: <input type="text" th:field="*{name}" /> </p>
+        <input type="submit" />
+    </form>
+</body>
+</html>
